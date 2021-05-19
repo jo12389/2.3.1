@@ -8,6 +8,7 @@ import spring.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     @Transactional
     public void delete(int id) {
-        entityManager.remove(show(id));
+
+       entityManager.createQuery("delete from user where id = :id").setParameter("id", id).executeUpdate();
+
+
+      //  entityManager.remove(entityManager.find(User.class,id));
 
     }
 }
